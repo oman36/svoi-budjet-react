@@ -1,26 +1,18 @@
 import React, {Component} from 'react';
-
+import {Link} from 'react-router-dom';
 const menu = [
-    {title: 'Add Check', url: '#new_check'},
-    {title: 'Search products', url: '#search_products'},
-    {title: 'List', url: '#search'},
-    {title: 'QR strings', url: '#qr_strings'},
-    {title: 'Categories', url: '#category_list'},
+    {title: 'Add Check', url: 'check'},
+    {title: 'Search products', url: 'search_products'},
+    {title: 'List', url: 'checks'},
+    {title: 'QR strings', url: 'qr_strings'},
+    {title: 'Categories', url: 'category_list'},
 ];
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            active: document.location.hash,
-        };
-        window.onhashchange = () => this.setState({active: document.location.hash})
-    }
-
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <a className="navbar-brand" href="#">Home</a>
+                <Link to='/' className="navbar-brand">Home</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"/>
@@ -28,10 +20,10 @@ class Header extends Component {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         {menu.map((element) =>
-                            <li className={"nav-item " + (this.state.active === element.url ? " active ": "")}>
-                                <a className="nav-link" href={element.url}>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={element.url} activeClassName="active">
                                     {element.title}
-                                </a>
+                                </Link>
                             </li>
                         )}
                     </ul>
