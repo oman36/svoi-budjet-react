@@ -1,12 +1,27 @@
 import React, {Component} from 'react';
 import Check from "./Check";
-import {ChecksAPI} from '../../Api/ChecksAPI';
+import {ChecksAPI} from '../../Api/v1/ChecksAPI';
 
 class Checks extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checks: [],
+            total_count: null,
+        }
+    }
+
     render() {
+        ChecksAPI.all({
+            'include': 'shop',
+        }).then(response => this.setState({
+            checks: response.items,
+            total_count: response.total_count,
+        }));
+
         return (
             <span>
-                {ChecksAPI.all().map((i) => <Check check={i}/>)}
+                {this.state.checks.map((i) => <Check check={i}/>)}
             </span>
         )
     }

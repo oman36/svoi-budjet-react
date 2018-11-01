@@ -6,6 +6,7 @@ class Check extends Component {
         super(props);
         this.state = {
             displayItems: false,
+            items: [],
         }
     }
     openItemList() {
@@ -49,7 +50,7 @@ class Check extends Component {
                             <div className="col text-right">Кол-во x Цена =</div>
                             <div className="col text-right">Стоимость</div>
                         </li>
-                        {this.props.check.items.map((check_item) => <CheckItem item={check_item}/>)}
+                        {this.state.items.map((check_item) => <CheckItem item={check_item}/>)}
                     </ul>
                 </div>
                 <div className="card-footer text-right">
