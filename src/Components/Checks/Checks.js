@@ -8,17 +8,17 @@ class Checks extends Component {
         this.state = {
             checks: [],
             total_count: null,
-        }
-    }
+        };
 
-    render() {
         ChecksAPI.all({
             'include': 'shop',
         }).then(response => this.setState({
             checks: response.items,
             total_count: response.total_count,
         }));
+    }
 
+    render() {
         return (
             <span>
                 {this.state.checks.map((i) => <Check check={i}/>)}
