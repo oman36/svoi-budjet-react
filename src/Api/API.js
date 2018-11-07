@@ -8,6 +8,7 @@ export const get = function (url, options) {
     }
 
     options.headers["Content-Type"] = "application/json; charset=utf-8";
+    options.headers["Accept"] = "application/json; charset=utf-8";
     return new Promise((resolve, reject) => {
         fetch(url, options)
             .then(response => {
