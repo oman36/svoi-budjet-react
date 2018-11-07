@@ -1,15 +1,28 @@
 import React, {Component} from 'react';
 import CheckItem from "./CheckItem";
+import Spinner from "./../Spinner";
+import "./../../Api/v1/ChecksAPI";
+import {ChecksAPI} from "../../Api/v1/ChecksAPI";
 
 class Check extends Component {
     constructor(props) {
         super(props);
         this.state = {
             displayItems: false,
-            items: [],
-        }
+            items: null,
+        };
+        this.checks = {};
     }
+
     openItemList() {
+        if (null === this.state.items) {
+            ChecksAPI.items(this.props.check.id, {
+                'include': 'product',
+            }).then(function (res) {
+                this.setState({items: res.items});
+            }.bind(this))
+        }
+
         this.setState({
             displayItems: !this.state.displayItems,
         })
@@ -50,7 +63,13 @@ class Check extends Component {
                             <div className="col text-right">Кол-во x Цена =</div>
                             <div className="col text-right">Стоимость</div>
                         </li>
-                        {this.state.items.map((check_item) => <CheckItem item={check_item}/>)}
+
+                        {null === this.state.items ?
+                            (<li className="row"><Spinner/></li>)
+                            : this.state.items.map((check_item) => (
+                                <CheckItem item={check_item} key={check_item.id}/>)
+                            )
+                        }
                     </ul>
                 </div>
                 <div className="card-footer text-right">
