@@ -18,6 +18,11 @@ class NewQRStringForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        this.setState({
+            success: false,
+            error_message: null,
+        });
+
         QRStringsAPI.post({
             qr_string: this.state.qr_string,
         })
@@ -32,7 +37,7 @@ class NewQRStringForm extends Component {
             }.bind(this))
             .catch(function (response) {
                 return this.setState({
-                    error_message: response.json ? response.json.message :response.text.slice(0, 200),
+                    error_message: response.json ? response.json.message : response.text.slice(0, 200),
                 })
 
             }.bind(this));
@@ -43,6 +48,8 @@ class NewQRStringForm extends Component {
         event.preventDefault();
         this.setState({
             qr_string: '',
+            success: false,
+            error_message: null,
         })
     }
 
@@ -58,9 +65,6 @@ class NewQRStringForm extends Component {
             <span>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="qr_string">
-                            Data from QR code
-                        </label>
                         <div className={["alert", "alert-danger", this.state.error_message ? '' : 'd-none'].join(' ')}
                              role="alert">
                             {this.state.error_message}
@@ -69,6 +73,9 @@ class NewQRStringForm extends Component {
                              role="alert">
                             Saved
                         </div>
+                        <label htmlFor="qr_string">
+                            QR string
+                        </label>
                         <input
                             id="qr_string"
                             type="text"
