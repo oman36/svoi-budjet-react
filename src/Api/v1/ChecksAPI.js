@@ -1,6 +1,8 @@
+import {entrypoint, buildIncludes, get} from '../API';
+
 export const ChecksAPI = {
     all: function (params) {
-        const url = new URL('v1/checks', document.location.origin + '/api/');
+        const url = new URL('v1/checks', entrypoint);
         if ('offset' in params) {
             url.searchParams.append('offset', params.offset);
         }
@@ -8,46 +10,23 @@ export const ChecksAPI = {
             url.searchParams.append('limit', params.limit);
         }
         if ('include' in params) {
-            let include;
-            if (params.include instanceof Array) {
-                include = params.include.map(function (model) {
-                    return model instanceof Array ? model.join('.') : model
-                }).join(',');
-            } else {
-                include = params.include
-            }
-            url.searchParams.append('include', include)
+            url.searchParams.append('include', buildIncludes(params.include))
         }
-        return fetch(url).then((response => response.json()));
+        return get(url);
     },
     one: function (id, params) {
-        const url = new URL(`v1/checks/${id}`, document.location.origin + '/api/');
+        const url = new URL(`v1/checks/${id}`, entrypoint);
         if ('include' in params) {
-            let include;
-            if (params.include instanceof Array) {
-                include = params.include.map(function (model) {
-                    return model instanceof Array ? model.join('.') : model
-                }).join(',');
-            } else {
-                include = params.include
-            }
-            url.searchParams.append('include', include)
+            url.searchParams.append('include', buildIncludes(params.include))
         }
-        return fetch(url).then((response => response.json()));
+        return get(url)
     },
     items: function (id, params) {
-        const url = new URL(`v1/checks/${id}/items`, document.location.origin + '/api/');
+        const url = new URL(`v1/checks/${id}/items`, entrypoint);
+
         if ('include' in params) {
-            let include;
-            if (params.include instanceof Array) {
-                include = params.include.map(function (model) {
-                    return model instanceof Array ? model.join('.') : model
-                }).join(',');
-            } else {
-                include = params.include
-            }
-            url.searchParams.append('include', include)
+            url.searchParams.append('include', buildIncludes(params.include))
         }
-        return fetch(url).then((response => response.json()));
+        return get(url);
     },
 };
