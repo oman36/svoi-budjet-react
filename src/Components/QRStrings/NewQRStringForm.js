@@ -31,8 +31,8 @@ class NewQRStringForm extends Component {
                     success: true,
                 });
 
-                if ('onSuccess' in this.props) {
-                    this.props.onSuccess(data)
+                if ('channel' in this.props) {
+                    this.props.channel.write(data)
                 }
             }.bind(this))
             .catch(function (response) {
