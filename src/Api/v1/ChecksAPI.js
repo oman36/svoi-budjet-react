@@ -20,4 +20,34 @@ export const ChecksAPI = {
         }
         return fetch(url).then((response => response.json()));
     },
+    one: function (id, params) {
+        const url = new URL(`v1/checks/${id}`, document.location.origin + '/api/');
+        if ('include' in params) {
+            let include;
+            if (params.include instanceof Array) {
+                include = params.include.map(function (model) {
+                    return model instanceof Array ? model.join('.') : model
+                }).join(',');
+            } else {
+                include = params.include
+            }
+            url.searchParams.append('include', include)
+        }
+        return fetch(url).then((response => response.json()));
+    },
+    items: function (id, params) {
+        const url = new URL(`v1/checks/${id}/items`, document.location.origin + '/api/');
+        if ('include' in params) {
+            let include;
+            if (params.include instanceof Array) {
+                include = params.include.map(function (model) {
+                    return model instanceof Array ? model.join('.') : model
+                }).join(',');
+            } else {
+                include = params.include
+            }
+            url.searchParams.append('include', include)
+        }
+        return fetch(url).then((response => response.json()));
+    },
 };
