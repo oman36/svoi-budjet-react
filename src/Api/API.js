@@ -33,6 +33,36 @@ export const get = function (url, options) {
     });
 };
 
+export const post = function (url, data) {
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            redirect: "follow",
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if ((200 <= response.status) && (response.status < 300)) {
+                    return response.json().then(resolve);
+                } else {
+                    return response.text().then(text => {
+                        let result = {
+                            text: text,
+                            status: response.status,
+                        };
+                        try {
+                            result.json = JSON.parse(text);
+                        } catch (e) {
+                        }
+                        return result;
+                    }).then(reject);
+                }
+            });
+    });
+};
+
 export const entrypoint = document.location.origin + '/api/';
 
 export const buildIncludes = function (includes) {
