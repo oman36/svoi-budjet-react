@@ -6,6 +6,7 @@ import CheckPage from './Checks/CheckPage';
 import NewQRString from './QRStrings/NewQRString';
 import QRStrings from "./QRStrings/QRStrings";
 import PageNotFound from "./PageNotFound";
+import ProductsPage from "./Products/ProductsPage";
 
 
 class Content extends Component {
@@ -15,6 +16,7 @@ class Content extends Component {
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/checks" component={Checks}/>
                 <Route exact path="/checks/:id" component={CheckPage}/>
+                <Route exact path="/products" component={ProductsPage}/>
                 <Route exact path="/qr_strings" component={QRStrings}/>
                 <Route exact path="/qr_strings/new" component={NewQRString}/>
                 <Route path="/" component={PageNotFound}/>

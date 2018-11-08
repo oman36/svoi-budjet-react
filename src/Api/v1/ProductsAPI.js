@@ -7,6 +7,7 @@ export const ProductsAPI = {
             'offset',
             'limit',
             'sort_by',
+            'name_contains'
         ].forEach((key) => {
             if (key in params) url.searchParams.append(key, params[key])
         });
