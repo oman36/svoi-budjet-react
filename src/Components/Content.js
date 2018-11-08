@@ -5,6 +5,7 @@ import Checks from './Checks/Checks';
 import CheckPage from './Checks/CheckPage';
 import NewQRString from './QRStrings/NewQRString';
 import QRStrings from "./QRStrings/QRStrings";
+import PageNotFound from "./PageNotFound";
 
 
 class Content extends Component {
@@ -16,6 +17,7 @@ class Content extends Component {
                 <Route exact path="/checks/:id" component={CheckPage}/>
                 <Route exact path="/qr_strings" component={QRStrings}/>
                 <Route exact path="/qr_strings/new" component={NewQRString}/>
+                <Route path="/" component={PageNotFound}/>
             </Switch>
         )
     }
