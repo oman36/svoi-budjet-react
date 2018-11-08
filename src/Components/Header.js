@@ -3,10 +3,10 @@ import {NavLink} from 'react-router-dom';
 
 const menu = [
     {title: 'Add Check', url: '/qr_strings/new'},
-    {title: 'Search products', url: '/search_products'},
+    // {title: 'Search products', url: '/search_products'},
     {title: 'Checks', url: '/checks'},
     {title: 'QR strings', url: '/qr_strings'},
-    {title: 'Categories', url: '/category_list'},
+    // {title: 'Categories', url: '/category_list'},
 ];
 
 class Header extends Component {
