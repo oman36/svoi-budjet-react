@@ -18,11 +18,9 @@ class CheckPage extends Component {
             {label: 'Discount sum', transformer: (check) => check ? check.discount_sum.toFixed(2) : ''},
             {label: 'Total sum', transformer: (check) => check ? check.total_sum.toFixed(2) : ''},
         ];
-        console.log('did init');
     }
 
     componentDidMount() {
-        console.log('did mount');
         this.id = parseInt(this.props.match.params.id);
         ChecksAPI.one(this.id, {'include': ['items.product', 'shop']})
             .then((res) => this.setState({item: res}))
