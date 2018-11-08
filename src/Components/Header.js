@@ -36,7 +36,12 @@ class Header extends Component {
                     <ul className="navbar-nav">
                         {menu.map((element, i) =>
                             <li key={i} className="nav-item" onClick={this.closeDropDown.bind(this)}>
-                                <NavLink className="nav-link" to={element.url} activeClassName="active">
+                                <NavLink
+                                    className="nav-link"
+                                    to={element.url}
+                                    activeClassName="active"
+                                    isActive={(m, loc) => m && m.isExact}
+                                >
                                     {element.title}
                                 </NavLink>
                             </li>
