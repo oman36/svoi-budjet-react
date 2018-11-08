@@ -1,4 +1,4 @@
-import {entrypoint, buildIncludes, post, get} from '../API';
+import {entrypoint, buildIncludes, post, get, patch, del} from '../API';
 
 export const QRStringsAPI = {
     all: function (params) {
@@ -19,5 +19,11 @@ export const QRStringsAPI = {
     },
     post: function (data) {
         return post(`${entrypoint}v1/qr_strings`, data)
+    },
+    patch: function (data) {
+        return patch(`${entrypoint}v1/qr_strings`, data)
+    },
+    delete: function (id) {
+        return del(`${entrypoint}v1/qr_strings/${id}`, {})
     }
 };
