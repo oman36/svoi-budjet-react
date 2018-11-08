@@ -32,13 +32,13 @@ export const get = function (url, options) {
             });
     });
 };
-
-export const post = function (url, data) {
+const sendJsonBody = function (url, data, method) {
     return new Promise((resolve, reject) => {
         fetch(url, {
-            method: "POST",
+            method: method,
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
+                "Accept":  "application/json; charset=utf-8",
             },
             redirect: "follow",
             body: JSON.stringify(data),
@@ -61,6 +61,19 @@ export const post = function (url, data) {
                 }
             });
     });
+};
+
+export const post = function (url, data) {
+    return sendJsonBody(url, data, 'POST')
+};
+
+
+export const patch = function (url, data) {
+    return sendJsonBody(url, data, 'PATCH')
+};
+
+export const del = function (url, data) {
+    return sendJsonBody(url, data, 'DELETE')
 };
 
 export const entrypoint = document.location.origin + '/api/';
