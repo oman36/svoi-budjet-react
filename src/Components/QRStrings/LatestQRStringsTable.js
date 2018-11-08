@@ -73,7 +73,7 @@ class LatestQRStringsTable extends Component {
                     <div className="progress-bar" role="progressbar"
                          style={{width: (this.state.progress * 100) + '%', transition: 'width .15s ease'}}/>
                 </div>
-                <div style={{overflowX: 'auto'}}>
+                <div className="table-responsive-sm">
                 <table className="table table-sm table-striped">
                     <thead>
                     <tr>

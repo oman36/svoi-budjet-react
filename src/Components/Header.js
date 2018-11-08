@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 
 const menu = [
-    {title: 'Add Check', url: '/check'},
+    {title: 'Add Check', url: '/qr_strings/new'},
     {title: 'Search products', url: '/search_products'},
     {title: 'Checks', url: '/checks'},
     {title: 'QR strings', url: '/qr_strings'},
