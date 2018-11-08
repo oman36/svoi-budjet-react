@@ -21,6 +21,10 @@ class LatestQRStringsTable extends Component {
         this.updateProgress(1);
     }
 
+    componentWillUnmount() {
+        clearTimeout(this.timerId);
+    }
+
     updateProgress(progress) {
         let currentProgress;
         if ('undefined' !== typeof progress) {
