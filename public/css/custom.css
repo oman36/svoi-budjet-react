@@ -86,3 +86,21 @@ body {
   }
 }
 /* <<<<<<<<<<<< spinner */
+
+/* >>>>>>>>>>>> QRString */
+.qr_string {
+    -webkit-transition: transform 1s ease-in, height 0.5s;
+    transition: transform 1s ease-in, height 0.5s;
+    height: 100%;
+}
+.qr_string--deleted {
+    -webkit-transform: translateX(2500px);
+    transform: translateX(2500px);
+    height: 0;
+}
+.qr_string__input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+/* <<<<<<<<<<<< QRString */
