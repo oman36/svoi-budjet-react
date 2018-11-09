@@ -23,6 +23,7 @@ class Checks extends Component {
             'include': 'shop',
             'offset': (page - 1) * this.perPage,
             'limit': this.perPage,
+            'sort_by': '-date',
         }).then(response => this.setState({
             checks: response.items,
             total_count: response.total_count,
