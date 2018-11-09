@@ -7,7 +7,7 @@ class ProductsPage extends Component {
     perPage = 10;
     page = null;
     name = '';
-    redirect = null;
+    typingTimerId = null;
 
     constructor(props) {
         super(props);
@@ -37,7 +37,9 @@ class ProductsPage extends Component {
     changeHandler(event) {
         event.preventDefault();
         this.name = event.target.value;
-        this.props.history.push(this.linkGenerator(1));
+        this.forceUpdate();
+        clearTimeout(this.typingTimerId);
+        this.typingTimerId = setTimeout(() => this.props.history.push(this.linkGenerator(1)), 700);
     }
 
     linkGenerator(page) {
