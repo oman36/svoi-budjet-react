@@ -3,12 +3,14 @@ import {entrypoint, buildIncludes, get} from '../API';
 export const ChecksAPI = {
     all: function (params) {
         const url = new URL('v1/checks', entrypoint);
-        if ('offset' in params) {
-            url.searchParams.append('offset', params.offset);
-        }
-        if ('limit' in params) {
-            url.searchParams.append('limit', params.limit);
-        }
+        [
+            'offset',
+            'limit',
+            'sort_by',
+        ].forEach((key) => {
+            if (key in params) url.searchParams.append(key, params[key])
+        });
+
         if ('include' in params) {
             url.searchParams.append('include', buildIncludes(params.include))
         }
@@ -23,6 +25,14 @@ export const ChecksAPI = {
     },
     items: function (id, params) {
         const url = new URL(`v1/checks/${id}/items`, entrypoint);
+
+        [
+            'offset',
+            'limit',
+            'sort_by',
+        ].forEach((key) => {
+            if (key in params) url.searchParams.append(key, params[key])
+        });
 
         if ('include' in params) {
             url.searchParams.append('include', buildIncludes(params.include))
