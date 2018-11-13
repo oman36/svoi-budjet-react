@@ -36,14 +36,13 @@ class QRStrings extends Component {
         if (this.page !== page) {
             this.setPage(page)
         }
-        return (
-            <span>
+        return (<span>
             {this.state.items.map((item) => <QRString key={item.id} qr_string={item}/>)}
             {this.state.page_nums !== null ? <Paginator
-                    page={page}
-                    count={this.state.page_nums}
-                    link_generator={(page_n) => `qr_strings?page=${page_n}`}
-                /> : ''}
+                page={page}
+                count={this.state.page_nums}
+                link_generator={(page_n) => `qr_strings?page=${page_n}`}
+            /> : ''}
         </span>)
     }
 }
