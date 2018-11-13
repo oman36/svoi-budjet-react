@@ -7,6 +7,7 @@ import NewQRString from './QRStrings/NewQRString';
 import QRStrings from "./QRStrings/QRStrings";
 import PageNotFound from "./PageNotFound";
 import ProductsPage from "./Products/ProductsPage";
+import QRStringPage from "./QRStrings/QRStringPage";
 
 
 class Content extends Component {
@@ -19,6 +20,7 @@ class Content extends Component {
                 <Route exact path="/products" component={ProductsPage}/>
                 <Route exact path="/qr_strings" component={QRStrings}/>
                 <Route exact path="/qr_strings/new" component={NewQRString}/>
+                <Route exact path="/qr_strings/:id" component={QRStringPage}/>
                 <Route path="/" component={PageNotFound}/>
             </Switch>
         )

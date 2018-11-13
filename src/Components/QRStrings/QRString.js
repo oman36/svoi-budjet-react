@@ -51,16 +51,16 @@ class QRString extends Component {
         let validString;
         if (this.state.is_valid === null) {
             rowClass = 'default';
-            validString = 'Not checked';
+            validString = '-';
         } else if (this.state.is_valid) {
             rowClass = 'success';
-            validString = 'Valid';
+            validString = '\u2714';
         } else {
             rowClass = 'danger';
-            validString = 'Invalid';
+            validString = '\u2718';
         }
         return (
-            <div className={["qr_string", this.state.deleted ? "qr_string--deleted" :""].join(' ')}>
+            <div className={["qr_string", this.state.deleted ? "qr_string--deleted" : ""].join(' ')}>
                 <div className="card">
                     <div className="card-body">
                         <div className="row">
@@ -84,15 +84,20 @@ class QRString extends Component {
                                 </form>
                                 <br className="d-md-none"/>
                             </div>
-                            <div className="col-md-3 col-6">
-                                <span className={`text-${rowClass}`} style={{marginRight: '1em'}}>
+                            <div className="col-md-3 col-8">
+                                <span className={`text-${rowClass} text-nowrap`} style={{marginRight: '0.5em'}}>
                                     {validString}
                                 </span>
-                                {(this.props.qr_string.check_id ? <Link to={`/checks/${this.props.qr_string.check_id}`}>
-                                    Check
-                                </Link> : '')}
+                                <Link to={`/qr_strings/${this.props.qr_string.id}`} style={{marginRight: '0.5em'}}>
+                                    Details
+                                </Link>
+                                {!this.props.qr_string.check_id ? '' :
+                                    <Link to={`/checks/${this.props.qr_string.check_id}`}>
+                                        Check
+                                    </Link>
+                                }
                             </div>
-                            <div className="col-md-2 col-6 text-right">
+                            <div className="col-md-2 col-4 text-right">
                                 <span onClick={this.deleteHandler}
                                       className="btn btn-sm btn-danger ">
                                         Delete

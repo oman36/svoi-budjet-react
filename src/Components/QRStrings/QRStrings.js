@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './QRString';
 import {QRStringsAPI} from '../../Api/v1/QRStringsAPI';
 import QRString from "./QRString";
 import Paginator from "../Paginator";
@@ -39,10 +38,8 @@ class QRStrings extends Component {
         }
         return (
             <span>
-            {this.state.items.map(function (item) {
-                return <QRString key={item.id} qr_string={item}/>
-            })}
-                {this.state.page_nums !== null ? <Paginator
+            {this.state.items.map((item) => <QRString key={item.id} qr_string={item}/>)}
+            {this.state.page_nums !== null ? <Paginator
                     page={page}
                     count={this.state.page_nums}
                     link_generator={(page_n) => `qr_strings?page=${page_n}`}

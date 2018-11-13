@@ -103,4 +103,15 @@ body {
     border: none;
     border-bottom: 1px solid #ccc;
 }
+
+.qr_string_image {
+    max-width: 100%;
+    min-height: 55px;
+    position: relative;
+}
+.qr_string_image__delete {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+}
 /* <<<<<<<<<<<< QRString */

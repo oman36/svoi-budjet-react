@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import CheckItem from "./CheckItem";
 import Spinner from "./../Spinner";
-import "./../../Api/v1/ChecksAPI";
 import {ChecksAPI} from "../../Api/v1/ChecksAPI";
 
 class Check extends Component {

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-
-import "./../../Api/v1/ChecksAPI";
 import {ChecksAPI} from "../../Api/v1/ChecksAPI";
+import InputGroup from "../Misc/InputGroup";
 
 class CheckPage extends Component {
     constructor(props) {
@@ -42,32 +41,12 @@ class CheckPage extends Component {
                 <span>
                     <h1>Check #{this.id}</h1>
                     {this.fields.map((field, i) => (
-                        <Field key={i} label={field.label} value={field.transformer(this.state.item)}/>
+                        <InputGroup key={i} label={field.label} value={field.transformer(this.state.item)}/>
                     ))}
                     {this.state.item ? <ItemsTable items={this.state.item.items}/> : ''}
                 </span>
             )}
         </span>
-        );
-    }
-}
-
-class Field extends Component {
-    render() {
-        return (
-            <div className="input-group input-group-sm mb-3">
-                <div className="input-group-prepend">
-                    <span className="input-group-text" id="inputGroup-sizing-sm">
-                        {this.props.label}
-                    </span>
-                </div>
-                <input type="text"
-                       readOnly
-                       className="form-control"
-                       value={this.props.value}
-                       style={{background: 'transparent'}}
-                />
-            </div>
         );
     }
 }

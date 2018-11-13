@@ -76,6 +76,42 @@ export const del = function (url, data) {
     return sendJsonBody(url, data, 'DELETE')
 };
 
+
+export const sendFiles = function (url, files, method) {
+    let data = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+        data.append(`file_${i}`, files.item(i))
+    }
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            method: method,
+            headers: {
+                "Accept":  "application/json; charset=utf-8",
+            },
+            redirect: "follow",
+            body: data,
+        })
+            .then(response => {
+                if ((200 <= response.status) && (response.status < 300)) {
+                    return response.json().then(resolve);
+                } else {
+                    return response.text().then(text => {
+                        let result = {
+                            text: text,
+                            status: response.status,
+                        };
+                        try {
+                            result.json = JSON.parse(text);
+                        } catch (e) {
+                        }
+                        return result;
+                    }).then(reject);
+                }
+            });
+    });
+};
+
 export const entrypoint = document.location.origin + '/api/';
 
 export const buildIncludes = function (includes) {
