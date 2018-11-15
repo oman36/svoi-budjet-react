@@ -66,7 +66,9 @@ class NewQRStringForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <div className={["alert", "alert-danger", this.state.error_message ? '' : 'd-none'].join(' ')}
-                             role="alert">
+                             role="alert"
+                             style={{overflowX:'auto'}}
+                        >
                             {this.state.error_message}
                         </div>
                         <div className={["alert", "alert-success", this.state.success ? '' : 'd-none'].join(' ')}
