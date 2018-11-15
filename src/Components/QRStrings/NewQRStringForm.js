@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import QrReader from "react-qr-reader";
 import {QRStringsAPI} from '../../Api/v1/QRStringsAPI';
 
 class NewQRStringForm extends Component {
@@ -8,12 +9,16 @@ class NewQRStringForm extends Component {
             qr_string: '',
             error_message: null,
             success: false,
+            camera: false,
+            greenInput: false,
         };
         this.checks = {};
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.clearFrom = this.clearFrom.bind(this);
+        this.handleScan = this.handleScan.bind(this);
+        this.greenInputTimerId = null;
     }
 
     handleSubmit(event) {
@@ -60,6 +65,21 @@ class NewQRStringForm extends Component {
         })
     }
 
+    handleScan(data) {
+        if (!data) {
+            return;
+        }
+
+        this.setState({
+            qr_string: data,
+            greenInput: true,
+            camera: false,
+        });
+
+        clearTimeout(this.greenInputTimerId);
+        this.greenInputTimerId = setTimeout(() => this.setState({greenInput: false}), 2500)
+    }
+
     render() {
         return (
             <span>
@@ -67,7 +87,7 @@ class NewQRStringForm extends Component {
                     <div className="form-group">
                         <div className={["alert", "alert-danger", this.state.error_message ? '' : 'd-none'].join(' ')}
                              role="alert"
-                             style={{overflowX:'auto'}}
+                             style={{overflowX: 'auto'}}
                         >
                             {this.state.error_message}
                         </div>
@@ -81,7 +101,10 @@ class NewQRStringForm extends Component {
                         <input
                             id="qr_string"
                             type="text"
-                            className="form-control"
+                            className={[
+                                "form-control",
+                                !this.state.greenInput ?"": "border-success alert-success",
+                            ].join(' ')}
                             aria-describedby="qr_code_help"
                             autoComplete="off"
                             placeholder="t=20180913T1449&s=468.03&fn=8710000101915576&i=4029&fp=774042432&n=1"
@@ -96,6 +119,15 @@ class NewQRStringForm extends Component {
                         <div className="col">
                             <button type="submit" className="btn btn-primary">Get</button>
                         </div>
+                        <div className="col">
+                            <span className="btn btn-outline-info"
+                                  onClick={() => this.setState({camera: !this.state.camera})}
+                                  role="img"
+                                  aria-label="camera"
+                            >
+                                &#x1F4F7;
+                            </span>
+                        </div>
                         <div className="col"/>
                         <div className="col text-right">
                             <button type="reset" className="btn btn-outline-info" onClick={this.clearFrom}>
@@ -104,6 +136,12 @@ class NewQRStringForm extends Component {
                         </div>
                     </div>
                 </form>
+
+                {!this.state.camera ?'':<QrReader
+                    delay={300}
+                    onError={(err) => this.setState({error_message: err.toString()})}
+                    onScan={this.handleScan}
+                />}
             </span>
         );
     }
