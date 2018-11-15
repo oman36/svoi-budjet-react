@@ -4,6 +4,7 @@ import PageNotFound from "../PageNotFound";
 import {Link} from "react-router-dom";
 import QRStringImages from "./QRStringImges";
 import InputGroup from "../Misc/InputGroup";
+import QRCode from 'qrcode.react';
 
 
 class QRStringPage extends Component {
@@ -12,6 +13,7 @@ class QRStringPage extends Component {
         this.state = {
             item: null,
             notFound: false,
+            qr_code_opened: false,
         };
     }
 
@@ -62,6 +64,22 @@ class QRStringPage extends Component {
                     )}
                     </span>
                 )}/>
+                <div className="rounded border" style={{padding: '5px'}}>
+                    <div className="btn btn-sm btn-info" role="button" onClick={() => this.setState({
+                        qr_code_opened: !this.state.qr_code_opened,
+                    })}>
+                        <span>Qr code</span>
+                        <span>{this.state.qr_code_opened ? '\u25B2' : '\u25BC'}</span>
+                    </div>
+                    {!this.state.qr_code_opened ? "" : (
+                        <span>
+                            <br/>
+                            <br/>
+                            <QRCode value={this.state.item.qr_string} size={256}/>
+                        </span>
+                    )}
+                </div>
+                <br/>
                 <QRStringImages qr_string_id={this.id}/>
             </span>
         );
