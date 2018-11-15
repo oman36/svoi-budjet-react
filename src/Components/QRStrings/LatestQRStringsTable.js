@@ -83,6 +83,7 @@ class LatestQRStringsTable extends Component {
                 <table className="table table-sm table-striped">
                     <thead>
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">QR string</th>
                         <th scope="col">Check</th>
                         <th scope="col">Added</th>
@@ -101,6 +102,11 @@ class LatestQRStringsTable extends Component {
 
                         return (
                             <tr className={rowClass} key={item.id}>
+                                <td>
+                                    <Link to={`/qr_strings/${item.id}`}>
+                                        {item.id}
+                                    </Link>
+                                </td>
                                 <td>
                                     {item.qr_string}
                                 </td>
