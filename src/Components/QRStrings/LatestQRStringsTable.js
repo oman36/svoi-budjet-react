@@ -9,7 +9,7 @@ class LatestQRStringsTable extends Component {
             items: [],
             progress: 0,
         };
-        this.updateInterval = 10000;
+        this.updateInterval = 4000;
         this.progressBarStep = 100;
         this.updateList = this.updateList.bind(this);
         this.updateProgress = this.updateProgress.bind(this);
@@ -75,7 +75,9 @@ class LatestQRStringsTable extends Component {
                 <br/>
                 <div className="progress" style={{height: '2px'}}>
                     <div className="progress-bar" role="progressbar"
-                         style={{width: (this.state.progress * 100) + '%', transition: 'width .15s ease'}}/>
+                         style={{
+                             width: (this.state.progress * 100) + '%',
+                             transition: `width ${this.state.progress > 0.01 ? '0.15' : '0' }s ease`}}/>
                 </div>
                 <div className="table-responsive-sm">
                 <table className="table table-sm table-striped">
