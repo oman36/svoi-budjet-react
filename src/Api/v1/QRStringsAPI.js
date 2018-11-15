@@ -30,8 +30,8 @@ export const QRStringsAPI = {
     post: function (data) {
         return post(`${entrypoint}v1/qr_strings`, data)
     },
-    patch: function (data) {
-        return patch(`${entrypoint}v1/qr_strings`, data)
+    patch: function (id, data) {
+        return patch(`${entrypoint}v1/qr_strings/${id}`, data)
     },
     delete: function (id) {
         return del(`${entrypoint}v1/qr_strings/${id}`, {})

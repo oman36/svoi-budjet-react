@@ -21,7 +21,7 @@ class QRString extends Component {
         if (this.original_qr_string === this.state.qr_string) {
             return this;
         }
-        QRStringsAPI.patch({qr_string: this.state.qr_string})
+        QRStringsAPI.patch(this.props.qr_string.id, {qr_string: this.state.qr_string})
             .then((json) => this.original_qr_string = json.qr_string)
             .catch((response) => window.alert(response.json ? response.json.message : response.text.slice(0, 200)));
     }
