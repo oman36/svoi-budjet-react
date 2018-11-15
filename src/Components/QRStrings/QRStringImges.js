@@ -67,7 +67,7 @@ class QRStringImages extends Component {
                         </label>
                     </span>
                     <span className="col-6 text-right">
-                        {this.images.length > 0 ? '' :
+                        {this.images.length === 0 ? '' :
                             <span className="btn btn-danger btn-lg" onClick={this.deleteAllImg}>
                             Delete all
                         </span>}
