@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Spinner from "./../Spinner";
 import {ProductsAPI} from "../../Api/v1/ProductsAPI";
+import {Link} from "react-router-dom";
 
 class Product extends Component {
     constructor(props) {
@@ -39,21 +40,25 @@ class Product extends Component {
             <div className="card">
                 <div className="card-header">
                     <div className="row">
-                        <div className="col col-md-6">
+                        <div className="col-12 col-md-6">
                             {product.name}
                             <hr/>
                             {shopName}
                         </div>
-                        <div className="col col-md-2 text-right">
+                        <div className="d-none d-md-inline-block col-md-3 text-right">
                             {product.min_price.toFixed(2)}
                         </div>
-                        <div className="col col-md-2">
+                        <div className="col-6 col-md-3 text-md-right">
                             <div className="btn btn-info btn-sm"
                                  onClick={this.openItemList.bind(this)}
                                  role="button"
                             >
-                                Список
+                                {this.state.displayItems ? '\u25B2' : '\u25BC'} List
                             </div>
+                        </div>
+
+                        <div className="d-md-none col-6 col-md-2 text-right">
+                            {product.min_price.toFixed(2)}
                         </div>
                     </div>
                 </div>
@@ -63,8 +68,9 @@ class Product extends Component {
                         <li className="row" style={{fontWeight: "bold", borderBottom: "dashed 1px #ccc"}}>
                             <div className="col-4 col-sm-2">Цена</div>
                             <div className="col-4 col-sm-2 text-center">Кол-во</div>
-                            <div className="col-4 col-sm-3 text-right">Стоимость</div>
-                            <div className="col-sm-5 d-none d-sm-block text-right">Дата</div>
+                            <div className="col-4 col-sm-2 text-right">Стоимость</div>
+                            <div className="col-6 col-sm-2 d-none d-sm-block ">Чек</div>
+                            <div className="col-6 col-sm-4 d-none d-sm-block text-right">Дата</div>
                         </li>
 
                         {null === this.state.items ?
@@ -89,9 +95,11 @@ class ProductItem extends Component {
             <li className="row" style={{borderBottom: "dashed 1px #ccc"}}>
                 <div className="col-4 col-sm-2">{item.price.toFixed(2)}</div>
                 <div className="col-4 col-sm-2 text-center">{item.quantity.toFixed(2)}</div>
-                <div className="col-4 col-sm-3 text-right">{item.sum.toFixed(2)}</div>
-                <div className="col-6 d-sm-none"/>
-                <div className="col-6 col-sm-5 text-right">
+                <div className="col-4 col-sm-2 text-right">{item.sum.toFixed(2)}</div>
+                <div className="col-6 col-sm-2 text-md-left">
+                    <Link to={`/checks/${item.check_id}`}>Check</Link>
+                </div>
+                <div className="col-6 col-sm-4 text-right">
                     {(new Date(item.check.date)).toLocaleString('ru')}
                 </div>
             </li>

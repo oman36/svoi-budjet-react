@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CheckItem from "./CheckItem";
 import Spinner from "./../Spinner";
 import {ChecksAPI} from "../../Api/v1/ChecksAPI";
+import {Link} from "react-router-dom";
 
 class Check extends Component {
     constructor(props) {
@@ -40,16 +41,21 @@ class Check extends Component {
             <div className="card">
                 <div className="card-header">
                     <div className="row">
-                        <div className="col col-md-6">{shopName}</div>
-                        <div className="col col-md-6 text-right">
+                        <div className="col-12 col-md-6">{shopName}</div>
+                        <div className="col-12 col-md-6 text-right">
                             {new Date(this.props.check.date).toLocaleString("ru")}
                         </div>
-                        <div className="col text-right">
-                            <div className="btn btn-info btn-sm"
+                        <div className="col d-flex justify-content-between">
+                            <Link className="d-flex btn btn-info btn-sm"
+                                 to={`/checks/${this.props.check.id}`}
+                            >
+                                Details
+                            </Link>
+                            <div className="d-flex btn btn-info btn-sm"
                                  onClick={this.openItemList.bind(this)}
                                  role="button"
                             >
-                                Список
+                                {this.state.displayItems ? '\u25B2' : '\u25BC'} List
                             </div>
                         </div>
                     </div>
