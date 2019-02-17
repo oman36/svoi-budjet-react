@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {QRStringsAPI} from "../../Api/v1/QRStringsAPI";
+import Spinner from "../Spinner";
 
 class QRStringImages extends Component {
     constructor(props) {
@@ -43,9 +44,13 @@ class QRStringImages extends Component {
     }
 
     addImageHandler(event) {
+        this.spinner = true;
+        this.forceUpdate();
         QRStringsAPI.post_images(this.props.qr_string_id, event.target.files)
             .then((res) => {
                 this.images = this.images.concat(res.items);
+            }).finally(() => {
+                this.spinner = false;
                 this.forceUpdate();
             })
     }
@@ -54,7 +59,7 @@ class QRStringImages extends Component {
         return (
             <span>
                 <span className="row">
-                    <span className="col-6">
+                    <span className="col-4">
                         <label className="btn btn-success btn-lg">
                             Add image
                             <input
@@ -66,7 +71,10 @@ class QRStringImages extends Component {
                             />
                         </label>
                     </span>
-                    <span className="col-6 text-right">
+                    <span className="col-4">
+                        {(!this.spinner)?'': <Spinner/>}
+                    </span>
+                    <span className="col-4 text-right">
                         {this.images.length === 0 ? '' :
                             <span className="btn btn-danger btn-lg" onClick={this.deleteAllImg}>
                             Delete all
