@@ -17,6 +17,8 @@ export const QRStringsAPI = {
         [
             'offset',
             'limit',
+            'with_check',
+            'is_valid',
             'sort_by',
         ].forEach((key) => {
             if (key in params) url.searchParams.append(key, params[key])
