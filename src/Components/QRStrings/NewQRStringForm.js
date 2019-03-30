@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import QrReader from "react-qr-reader";
 import {QRStringsAPI} from '../../Api/v1/QRStringsAPI';
+import {Link} from "react-router-dom";
 
 class NewQRStringForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             qr_string: '',
-            error_message: null,
+            error: null,
             success: false,
             camera: false,
             greenInput: false,
@@ -25,7 +26,7 @@ class NewQRStringForm extends Component {
         event.preventDefault();
         this.setState({
             success: false,
-            error_message: null,
+            error: null,
         });
 
         QRStringsAPI.post({
@@ -42,7 +43,7 @@ class NewQRStringForm extends Component {
             }.bind(this))
             .catch(function (response) {
                 return this.setState({
-                    error_message: response.json ? response.json.message : response.text.slice(0, 200),
+                    error: response.json ? response.json : {message: response.text.slice(0, 200)},
                 })
 
             }.bind(this));
@@ -54,7 +55,7 @@ class NewQRStringForm extends Component {
         this.setState({
             qr_string: '',
             success: false,
-            error_message: null,
+            error: null,
         })
     }
 
@@ -80,16 +81,35 @@ class NewQRStringForm extends Component {
         this.greenInputTimerId = setTimeout(() => this.setState({greenInput: false}), 2500)
     }
 
+    renderErrorMessage() {
+        if (!this.state.error) {
+            return '';
+        }
+        let additional;
+        if (this.state.error.code === 1001) {
+            additional = (<Link to={`/qr_strings/${this.state.error.item.id}`}>
+                    {this.state.error.item.id}
+                </Link>)
+        }
+        return (
+            <span>
+                {this.state.error.message}
+                {additional ? <br/>: ''}
+                {additional}
+            </span>
+        )
+    }
+
     render() {
         return (
             <span>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <div className={["alert", "alert-danger", this.state.error_message ? '' : 'd-none'].join(' ')}
+                        <div className={["alert", "alert-danger", this.state.error ? '' : 'd-none'].join(' ')}
                              role="alert"
                              style={{overflowX: 'auto'}}
                         >
-                            {this.state.error_message}
+                            {this.renderErrorMessage()}
                         </div>
                         <div className={["alert", "alert-success", this.state.success ? '' : 'd-none'].join(' ')}
                              role="alert">
@@ -103,7 +123,7 @@ class NewQRStringForm extends Component {
                             type="text"
                             className={[
                                 "form-control",
-                                !this.state.greenInput ?"": "border-success alert-success",
+                                !this.state.greenInput ? "" : "border-success alert-success",
                             ].join(' ')}
                             aria-describedby="qr_code_help"
                             autoComplete="off"
@@ -137,9 +157,9 @@ class NewQRStringForm extends Component {
                     </div>
                 </form>
 
-                {!this.state.camera ?'':<QrReader
+                {!this.state.camera ? '' : <QrReader
                     delay={300}
-                    onError={(err) => this.setState({error_message: err.toString()})}
+                    onError={(err) => this.setState({error: {message: err.toString()}})}
                     onScan={this.handleScan}
                 />}
             </span>
